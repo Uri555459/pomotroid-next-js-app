@@ -1,5 +1,5 @@
 const Home = () => {
-	return <h1>Pomotroid</h1>
+	return <></>
 }
 
 export default Home
