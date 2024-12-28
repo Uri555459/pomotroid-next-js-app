@@ -14,12 +14,12 @@ interface Props {
 
 export const Header: FC<Props> = ({ className }) => {
 	return (
-		<header className={cn(className)}>
+		<header className={cn('bg-[#23262e] pb-3', className)}>
 			<h1 className='text-2x hover:text-red mb-3 text-center font-normal text-[#05caae]'>
 				Pomotroid
 			</h1>
 			<div className='flex items-center justify-between'>
-				<Link href={ROUTE_CONSTANTS.menu}>
+				<Link href={ROUTE_CONSTANTS.timerConfig}>
 					<Menu
 						size={20}
 						color='gray'

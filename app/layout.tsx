@@ -30,7 +30,7 @@ const RootLayout = ({
 			<body
 				className={`${geistSans.variable} ${geistMono.variable} antialiased`}
 			>
-				<main className='mx-auto h-[480px] w-full max-w-96 bg-[#23262e] px-5 py-6'>
+				<main className='mx-auto min-h-[480px] w-full max-w-96 bg-[#23262e] px-5 py-6'>
 					<Header />
 					{children}
 				</main>

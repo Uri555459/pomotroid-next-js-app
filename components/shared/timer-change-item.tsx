@@ -13,6 +13,7 @@ interface Props {
 	min?: number
 	max?: number
 	step?: number
+	title?: string
 }
 
 export const TimerChangeItem: FC<Props> = ({
@@ -21,6 +22,7 @@ export const TimerChangeItem: FC<Props> = ({
 	min = 0,
 	max = 1000,
 	step = 1,
+	title,
 }) => {
 	const [value, setValue] = useState<number>(defaultValue)
 	const onChange = (value: number[]) => {
@@ -29,9 +31,11 @@ export const TimerChangeItem: FC<Props> = ({
 
 	return (
 		<div className={cn(className)}>
-			<div>
-				<h2 className='capitalize text-[#775f35]'>fucus</h2>
-				<div>{value}</div>
+			<div className='flex flex-col items-center justify-center'>
+				<h2 className='text-center text-sm capitalize text-[#cc9630]'>
+					{title}
+				</h2>
+				<div className='mb-3'>{`${value} : 00`}</div>
 				<Slider
 					defaultValue={[defaultValue]}
 					min={min}
