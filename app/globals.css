@@ -4,7 +4,7 @@
 
 body {
 	font-family: Arial, Helvetica, sans-serif;
-	@apply text-lg font-bold;
+	@apply bg-[#050505] text-lg text-white;
 }
 
 @layer base {

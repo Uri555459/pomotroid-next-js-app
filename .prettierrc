@@ -1,6 +1,6 @@
 {
 	"printWidth": 80,
-	"trailingComma": "none",
+	"trailingComma": "all",
 	"tabWidth": 2,
 	"useTabs": true,
 	"semi": false,
@@ -20,6 +20,8 @@
 		"^@/components",
 		"^@/lib(.*)$",
 		"^@/lib",
+		"^@/constants(.*)$",
+		"^@/constants",
 		"^@/@types/(.*)$",
 		"^@/@types",
 		"^../(.*)$",
