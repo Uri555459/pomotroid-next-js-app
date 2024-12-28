@@ -1,6 +1,6 @@
 'use client'
 
-import { type FC, useEffect, useState } from 'react'
+import type { FC } from 'react'
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 
 import { useTimer } from '@/store/store'
