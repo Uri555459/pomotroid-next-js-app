@@ -14,13 +14,13 @@ interface Props {
 }
 
 export const ControlsTimerGroup: FC<Props> = ({ className }) => {
-	const { isPlay, setIsPlay, setIsReset } = useTimer()
+	const { isPlay, changeIsPlay, changeIsReset } = useTimer()
 	return (
 		<div className={cn(className)}>
 			<div className='flex items-center justify-center'>
 				<Button
 					className='border-gray flex h-14 w-14 items-center rounded-full border-2 p-0'
-					onClick={setIsPlay}
+					onClick={changeIsPlay}
 				>
 					{!isPlay ? <Play size={20} /> : <Pause size={20} />}
 				</Button>
@@ -28,7 +28,7 @@ export const ControlsTimerGroup: FC<Props> = ({ className }) => {
 			<div className='flex items-center justify-between pt-14'>
 				<div>
 					<div>1/4</div>
-					<Button onClick={setIsReset}>Reset</Button>
+					<Button onClick={changeIsReset}>Reset</Button>
 				</div>
 
 				<div className='flex items-center'>

@@ -13,11 +13,11 @@ interface Props {
 }
 
 export const Timer: FC<Props> = ({ className, time = 5 }) => {
-	const { isPlay, setIsPlay, isReset, setIsReset } = useTimer()
+	const { isPlay, changeIsPlay, isReset, changeIsReset } = useTimer()
 
 	const handleReset = () => {
-		setIsPlay()
-		setIsReset()
+		changeIsPlay()
+		changeIsReset()
 	}
 
 	console.log(isReset)
@@ -36,7 +36,7 @@ export const Timer: FC<Props> = ({ className, time = 5 }) => {
 				colors={['#ed5c42', '#ed5c42', '#ed5c42', '#ed5c42']}
 				colorsTime={[7, 5, 2, 0]}
 				onComplete={() => {
-					setIsPlay()
+					changeIsPlay()
 				}}
 				onUpdate={() => {}}
 				rotation='clockwise'
