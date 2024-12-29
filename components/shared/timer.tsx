@@ -13,21 +13,14 @@ interface Props {
 }
 
 export const Timer: FC<Props> = ({ className, time = 5 }) => {
-	const { isPlay, changeIsPlay, isReset, changeIsReset } = useTimer()
-
-	const handleReset = () => {
-		changeIsPlay()
-		changeIsReset()
-	}
-
-	console.log(isReset)
+	const timer = useTimer()
 
 	return (
 		<div className={cn('flex flex-col items-center', className)}>
 			<CountdownCircleTimer
-				key={isReset}
+				key={timer.isReset}
 				isGrowing={false}
-				isPlaying={isPlay}
+				isPlaying={timer.isPlay}
 				size={220}
 				strokeWidth={10}
 				trailColor='#736e76'
@@ -36,7 +29,7 @@ export const Timer: FC<Props> = ({ className, time = 5 }) => {
 				colors={['#ed5c42', '#ed5c42', '#ed5c42', '#ed5c42']}
 				colorsTime={[7, 5, 2, 0]}
 				onComplete={() => {
-					changeIsPlay()
+					timer.changeIsPlay()
 				}}
 				onUpdate={() => {}}
 				rotation='clockwise'
@@ -44,11 +37,9 @@ export const Timer: FC<Props> = ({ className, time = 5 }) => {
 				{({ remainingTime }) => {
 					const minutes = Math.floor(remainingTime / 60)
 					const seconds = remainingTime % 60
-
 					return `${minutes}:${seconds}`
 				}}
 			</CountdownCircleTimer>
-			<button onClick={handleReset}>RESET</button>
 		</div>
 	)
 }
