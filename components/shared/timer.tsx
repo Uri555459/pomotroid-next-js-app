@@ -1,5 +1,6 @@
 'use client'
 
+import { useRef, useState } from 'react'
 import type { FC } from 'react'
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 
@@ -9,11 +10,22 @@ import { cn } from '@/lib/utils'
 
 interface Props {
 	className?: string
-	time: number
 }
 
-export const Timer: FC<Props> = ({ className, time = 5 }) => {
-	const timer = useTimer()
+export const Timer: FC<Props> = ({ className }) => {
+	const timer = useTimer(state => state)
+
+	const [updateTime, setUpdateTime] = useState(2)
+
+	const audioRef = useRef<HTMLAudioElement>(null)
+
+	const play = () => {
+		if (audioRef.current) {
+			audioRef.current.play()
+		} else {
+			// Throw error
+		}
+	}
 
 	return (
 		<div className={cn('flex flex-col items-center', className)}>
@@ -25,10 +37,33 @@ export const Timer: FC<Props> = ({ className, time = 5 }) => {
 				strokeWidth={10}
 				trailColor='#736e76'
 				trailStrokeWidth={2}
-				duration={time}
+				duration={updateTime * 60}
 				colors={['#ed5c42', '#ed5c42', '#ed5c42', '#ed5c42']}
 				colorsTime={[7, 5, 2, 0]}
 				onComplete={() => {
+					if (
+						timer.timeRoundsCurrentValue !== timer.timeRoundsValue &&
+						timer.timeRoundsCurrentValue % 2 !== 0
+					) {
+						timer.changeTimerSliderHandler(
+							'timeRoundsCurrentValue',
+							timer.timeRoundsCurrentValue + 1,
+						)
+						play()
+
+						setUpdateTime(timer.timeShortBreakValue)
+						timer.changeIsReset()
+						timer.changeIsPlay()
+					} else if (timer.timeRoundsCurrentValue !== timer.timeRoundsValue) {
+						timer.changeTimerSliderHandler(
+							'timeRoundsCurrentValue',
+							timer.timeRoundsCurrentValue + 1,
+						)
+						play()
+						setUpdateTime(timer.timeFocusValue)
+						timer.changeIsReset()
+						timer.changeIsPlay()
+					}
 					timer.changeIsPlay()
 				}}
 				onUpdate={() => {}}
@@ -40,6 +75,10 @@ export const Timer: FC<Props> = ({ className, time = 5 }) => {
 					return `${minutes}:${seconds}`
 				}}
 			</CountdownCircleTimer>
+			<audio
+				ref={audioRef}
+				src='/puk.mp3'
+			/>
 		</div>
 	)
 }

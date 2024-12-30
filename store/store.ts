@@ -9,6 +9,7 @@ type TimerStore = {
 	timeShortBreakValue: number
 	timeLongBreakValue: number
 	timeRoundsValue: number
+	timeRoundsCurrentValue: number
 	keyName: string
 
 	changeIsReset: () => void
@@ -22,9 +23,10 @@ export const useTimer = create<TimerStore>()(
 		isReset: false,
 
 		timeFocusValue: 25,
-		timeShortBreakValue: 5,
+		timeShortBreakValue: 1,
 		timeLongBreakValue: 10,
 		timeRoundsValue: 4,
+		timeRoundsCurrentValue: 1,
 		keyName: 'defaultValue',
 
 		changeIsReset: () => set(state => ({ isReset: !state.isReset })),

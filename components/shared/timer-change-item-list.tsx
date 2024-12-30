@@ -14,7 +14,7 @@ interface Props {
 }
 
 export const TimerChangeItemList: FC<Props> = ({ className }) => {
-	const timer = useTimer()
+	const timer = useTimer(state => state)
 
 	return (
 		<div className={cn(className)}>

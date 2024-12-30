@@ -14,12 +14,13 @@ interface Props {
 }
 
 export const ControlsTimerGroup: FC<Props> = ({ className }) => {
-	const timer = useTimer()
+	const timer = useTimer(state => state)
 
 	const handleReset = () => {
 		if (timer.isPlay) timer.changeIsPlay()
 		timer.changeIsReset()
 	}
+
 	return (
 		<div className={cn(className)}>
 			<div className='flex items-center justify-center'>
@@ -32,7 +33,9 @@ export const ControlsTimerGroup: FC<Props> = ({ className }) => {
 			</div>
 			<div className='flex items-center justify-between pt-14'>
 				<div>
-					<div>1/4</div>
+					<div>
+						{timer.timeRoundsCurrentValue}/{timer.timeRoundsValue}
+					</div>
 					<Button onClick={handleReset}>Reset</Button>
 				</div>
 
