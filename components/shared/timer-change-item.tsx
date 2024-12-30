@@ -1,6 +1,5 @@
 'use client'
 
-import { useState } from 'react'
 import type { FC } from 'react'
 
 import { Slider } from '@/components/ui'
@@ -14,6 +13,10 @@ interface Props {
 	max?: number
 	step?: number
 	title?: string
+	keyName: string
+	tableValue: number
+	onChange?: (value: number) => void
+	changeTimerSliderHandler: (key: string, value: number) => void
 }
 
 export const TimerChangeItem: FC<Props> = ({
@@ -23,25 +26,25 @@ export const TimerChangeItem: FC<Props> = ({
 	max = 1000,
 	step = 1,
 	title,
+	keyName,
+	tableValue = 1,
+	changeTimerSliderHandler,
 }) => {
-	const [value, setValue] = useState<number>(defaultValue)
-	const onChange = (value: number[]) => {
-		setValue(value[0])
-	}
-
 	return (
 		<div className={cn(className)}>
 			<div className='flex flex-col items-center justify-center'>
 				<h2 className='text-center text-sm capitalize text-[#cc9630]'>
 					{title}
 				</h2>
-				<div className='mb-3'>{`${value} : 00`}</div>
+				<div className='mb-3'>{`${tableValue} : 00`}</div>
 				<Slider
 					defaultValue={[defaultValue]}
 					min={min}
 					max={max}
 					step={step}
-					onValueChange={onChange}
+					onValueChange={(value: number[]) =>
+						changeTimerSliderHandler(keyName, value[0])
+					}
 				/>
 			</div>
 		</div>

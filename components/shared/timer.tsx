@@ -18,7 +18,7 @@ export const Timer: FC<Props> = ({ className, time = 5 }) => {
 	return (
 		<div className={cn('flex flex-col items-center', className)}>
 			<CountdownCircleTimer
-				key={timer.isReset}
+				key={Number(timer.isReset)}
 				isGrowing={false}
 				isPlaying={timer.isPlay}
 				size={220}
