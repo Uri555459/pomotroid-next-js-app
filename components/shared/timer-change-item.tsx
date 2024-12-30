@@ -13,11 +13,18 @@ interface Props {
 	max?: number
 	step?: number
 	title?: string
-	keyName: string
+	keyName: KeyNameType
 	tableValue: number
 	onChange?: (value: number) => void
 	changeTimerSliderHandler: (key: string, value: number) => void
 }
+
+type KeyNameType =
+	| 'timeFocusValue'
+	| 'timeShortBreakValue'
+	| 'timeLongBreakValue'
+	| 'timeRoundsValue'
+	| 'timeRoundsCurrentValue'
 
 export const TimerChangeItem: FC<Props> = ({
 	className,

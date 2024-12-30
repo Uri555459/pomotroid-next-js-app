@@ -1,0 +1,26 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Timer {
+  id                     Int     @id @default(autoincrement())
+  isPlay                 Boolean @unique
+  isReset                Boolean @unique
+  timeFocusValue         Int     @unique
+  timeShortBreakValue    Int     @unique
+  timeLongBreakValue     Int     @unique
+  timeRoundsValue        Int     @unique
+  timeRoundsCurrentValue Int     @unique
+  keyName                String
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
