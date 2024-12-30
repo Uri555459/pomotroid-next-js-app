@@ -1,7 +1,7 @@
 'use client'
 
 import { Pause, Play, SkipForward, Volume2 } from 'lucide-react'
-import type { FC } from 'react'
+import { type FC, useEffect } from 'react'
 
 import { useTimer } from '@/store'
 
@@ -21,6 +21,8 @@ export const ControlsTimerGroup: FC<Props> = ({ className }) => {
 		timer.changeIsReset()
 	}
 
+	useEffect(() => {}, [timer.timeRoundsValue])
+
 	return (
 		<div className={cn(className)}>
 			<div className='flex items-center justify-center'>
@@ -28,7 +30,13 @@ export const ControlsTimerGroup: FC<Props> = ({ className }) => {
 					className='border-gray flex h-14 w-14 items-center rounded-full border-2 p-0'
 					onClick={timer.changeIsPlay}
 				>
-					{!timer.isPlay ? <Play size={20} /> : <Pause size={20} />}
+					{!timer.isPlay ? (
+						<Play size={20} />
+					) : timer.timeRoundsCurrentValue === timer.timeRoundsValue ? (
+						<Play size={20} />
+					) : (
+						<Pause size={20} />
+					)}
 				</Button>
 			</div>
 			<div className='flex items-center justify-between pt-14'>

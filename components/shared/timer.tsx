@@ -15,7 +15,7 @@ interface Props {
 export const Timer: FC<Props> = ({ className }) => {
 	const timer = useTimer(state => state)
 
-	const [updateTime, setUpdateTime] = useState(2)
+	const [updateTime, setUpdateTime] = useState(timer.timeFocusValue)
 
 	const audioRef = useRef<HTMLAudioElement>(null)
 
@@ -62,6 +62,10 @@ export const Timer: FC<Props> = ({ className }) => {
 						play()
 						setUpdateTime(timer.timeFocusValue)
 						timer.changeIsReset()
+						timer.changeIsPlay()
+					} else if (timer.timeRoundsCurrentValue === timer.timeRoundsValue) {
+						play()
+						setUpdateTime(timer.timeLongBreakValue)
 						timer.changeIsPlay()
 					}
 					timer.changeIsPlay()
