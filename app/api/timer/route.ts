@@ -2,6 +2,8 @@ import { NextRequest, NextResponse } from 'next/server'
 
 import { prisma } from '@/prisma'
 
+export const revalidate = 60
+
 export const GET = async () => {
 	const baseConfig = await prisma.timer.findMany()
 

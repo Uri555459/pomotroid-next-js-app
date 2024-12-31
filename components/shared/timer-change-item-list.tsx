@@ -22,7 +22,7 @@ export const TimerChangeItemList: FC<Props> = ({ className }) => {
 				title='focus'
 				keyName='timeFocusValue'
 				className='pt-5'
-				min={0.05}
+				min={1}
 				max={90}
 				defaultValue={timer.timeFocusValue}
 				tableValue={timer.timeFocusValue}
@@ -32,7 +32,7 @@ export const TimerChangeItemList: FC<Props> = ({ className }) => {
 				keyName='timeShortBreakValue'
 				title='short break'
 				className='pt-5'
-				min={0.08}
+				min={1}
 				max={90}
 				defaultValue={timer.timeShortBreakValue}
 				tableValue={timer.timeShortBreakValue}
@@ -42,7 +42,7 @@ export const TimerChangeItemList: FC<Props> = ({ className }) => {
 				keyName='timeLongBreakValue'
 				title='long break'
 				className='pt-5'
-				min={0.085}
+				min={1}
 				max={90}
 				defaultValue={timer.timeLongBreakValue}
 				tableValue={timer.timeLongBreakValue}
