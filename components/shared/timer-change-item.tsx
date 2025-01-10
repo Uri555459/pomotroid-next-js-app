@@ -10,6 +10,8 @@ import { cn } from '@/lib/utils'
 
 import { ROUTE_API_CONSTANTS } from '@/constants/route.constants'
 
+import type { KeyNameType } from '@/@types'
+
 import { axiosInstance } from '@/axios'
 
 interface Props {
@@ -22,13 +24,6 @@ interface Props {
 	keyName: KeyNameType
 	tableValue: number
 }
-
-export type KeyNameType =
-	| 'timeFocusValue'
-	| 'timeShortBreakValue'
-	| 'timeLongBreakValue'
-	| 'timeRoundsValue'
-	| 'timeRoundsCurrentValue'
 
 export const TimerChangeItem: FC<Props> = ({
 	className,

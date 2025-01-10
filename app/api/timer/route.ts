@@ -1,5 +1,6 @@
 import type { Timer } from '@prisma/client'
-import { NextRequest, NextResponse } from 'next/server'
+import { NextResponse } from 'next/server'
+import type { NextRequest } from 'next/server'
 
 import { prisma } from '@/prisma'
 
@@ -20,10 +21,14 @@ export async function POST(req: NextRequest): Promise<NextResponse> {
 
 export async function PUT(req: NextRequest): Promise<NextResponse> {
 	const data: Timer = await req.json()
+	const dataKeyName = Object.keys(data)[0]
+
 	const configData = await prisma.timer.update({
 		where: { id: 1 },
 		data,
 	})
+
+	console.log(dataKeyName)
 
 	return NextResponse.json(configData)
 }
