@@ -1,20 +1,27 @@
-'use client'
-
+// 'use client'
+import type { Timer } from '@prisma/client'
+// import { useEffect, useState } from 'react'
 import type { FC } from 'react'
-
-import { useTimer } from '@/store'
 
 import { TimerChangeItem } from '@/components/shared'
 import { Button } from '@/components/ui'
 
 import { cn } from '@/lib/utils'
 
+import { ROUTE_API_CONSTANTS } from '@/constants/route.constants'
+
+import { axiosInstance } from '@/axios'
+
+// import { axiosInstance } from '@/axios'
+
 interface Props {
 	className?: string
 }
 
-export const TimerChangeItemList: FC<Props> = ({ className }) => {
-	const timer = useTimer(state => state)
+export const TimerChangeItemList: FC<Props> = async ({ className }) => {
+	const { data } = await axiosInstance<Timer[]>(ROUTE_API_CONSTANTS.timer)
+
+	const baseConfig = data[0]
 
 	return (
 		<div className={cn(className)}>
@@ -24,9 +31,9 @@ export const TimerChangeItemList: FC<Props> = ({ className }) => {
 				className='pt-5'
 				min={1}
 				max={90}
-				defaultValue={timer.timeFocusValue}
-				tableValue={timer.timeFocusValue}
-				changeTimerSliderHandler={timer.changeTimerSliderHandler}
+				defaultValue={baseConfig.timeFocusValue}
+				tableValue={baseConfig.timeFocusValue}
+				// changeTimerSliderHandler={changeTimerSliderHandler}
 			/>
 			<TimerChangeItem
 				keyName='timeShortBreakValue'
@@ -34,9 +41,9 @@ export const TimerChangeItemList: FC<Props> = ({ className }) => {
 				className='pt-5'
 				min={1}
 				max={90}
-				defaultValue={timer.timeShortBreakValue}
-				tableValue={timer.timeShortBreakValue}
-				changeTimerSliderHandler={timer.changeTimerSliderHandler}
+				defaultValue={baseConfig.timeShortBreakValue}
+				tableValue={baseConfig.timeShortBreakValue}
+				// changeTimerSliderHandler={changeTimerSliderHandler}
 			/>
 			<TimerChangeItem
 				keyName='timeLongBreakValue'
@@ -44,9 +51,9 @@ export const TimerChangeItemList: FC<Props> = ({ className }) => {
 				className='pt-5'
 				min={1}
 				max={90}
-				defaultValue={timer.timeLongBreakValue}
-				tableValue={timer.timeLongBreakValue}
-				changeTimerSliderHandler={timer.changeTimerSliderHandler}
+				defaultValue={baseConfig.timeLongBreakValue}
+				tableValue={baseConfig.timeLongBreakValue}
+				// changeTimerSliderHandler={changeTimerSliderHandler}
 			/>
 			<TimerChangeItem
 				keyName='timeRoundsValue'
@@ -54,9 +61,9 @@ export const TimerChangeItemList: FC<Props> = ({ className }) => {
 				className='pt-5'
 				min={1}
 				max={12}
-				defaultValue={timer.timeRoundsValue}
-				tableValue={timer.timeRoundsValue}
-				changeTimerSliderHandler={timer.changeTimerSliderHandler}
+				defaultValue={baseConfig.timeRoundsValue}
+				tableValue={baseConfig.timeRoundsValue}
+				// changeTimerSliderHandler={changeTimerSliderHandler}
 			/>
 			<div className='my-5 text-center'>
 				<Button>Reset Default</Button>

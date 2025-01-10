@@ -4,13 +4,13 @@ import { prisma } from '@/prisma'
 
 export const revalidate = 60
 
-export const GET = async () => {
+export async function GET(): Promise<NextResponse> {
 	const baseConfig = await prisma.timer.findMany()
 
 	return NextResponse.json(baseConfig)
 }
 
-export const POST = async (req: NextRequest) => {
+export async function POST(req: NextRequest): Promise<NextResponse> {
 	const data = await req.json()
 	const configData = await prisma.timer.create({ data })
 

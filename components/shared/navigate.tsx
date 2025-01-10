@@ -4,7 +4,7 @@ import type { FC } from 'react'
 
 import { cn } from '@/lib/utils'
 
-import { ROUTE_CONSTANTS } from '@/constants/route.constants'
+import { ROUTE_PAGE_CONSTANTS } from '@/constants/route.constants'
 
 interface Props {
 	className?: string
@@ -20,25 +20,25 @@ export const Navigate: FC<Props> = ({ className }) => {
 		>
 			<Link
 				className='flex w-full items-center justify-center p-3'
-				href={ROUTE_CONSTANTS.timerConfig}
+				href={ROUTE_PAGE_CONSTANTS.timerConfig}
 			>
 				<Clock size={20} />
 			</Link>
 			<Link
 				className='flex w-full items-center justify-center p-3'
-				href={ROUTE_CONSTANTS.options}
+				href={ROUTE_PAGE_CONSTANTS.options}
 			>
 				<Settings size={20} />
 			</Link>
 			<Link
 				className='flex w-full items-center justify-center p-3'
-				href={ROUTE_CONSTANTS.themes}
+				href={ROUTE_PAGE_CONSTANTS.themes}
 			>
 				<Palette size={20} />
 			</Link>
 			<Link
 				className='flex w-full items-center justify-center p-3'
-				href={ROUTE_CONSTANTS.about}
+				href={ROUTE_PAGE_CONSTANTS.about}
 			>
 				<Info size={20} />
 			</Link>

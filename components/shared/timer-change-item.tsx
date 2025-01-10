@@ -16,7 +16,6 @@ interface Props {
 	keyName: KeyNameType
 	tableValue: number
 	onChange?: (value: number) => void
-	changeTimerSliderHandler: (key: string, value: number) => void
 }
 
 type KeyNameType =
@@ -35,8 +34,13 @@ export const TimerChangeItem: FC<Props> = ({
 	title,
 	keyName,
 	tableValue = 1,
-	changeTimerSliderHandler,
 }) => {
+	const changeTimerSliderHandler = (keyName: string, value: number): void => {
+		const key = keyName
+		const val = value
+		console.log(key, val)
+	}
+
 	return (
 		<div className={cn(className)}>
 			<div className='flex flex-col items-center justify-center'>

@@ -9,7 +9,7 @@ import { Button } from '@/components/ui'
 
 import { cn } from '@/lib/utils'
 
-import { ROUTE_CONSTANTS } from '@/constants/route.constants'
+import { ROUTE_PAGE_CONSTANTS } from '@/constants/route.constants'
 
 interface Props {
 	className?: string
@@ -23,15 +23,15 @@ export const Header: FC<Props> = ({ className }) => {
 				Pomotroid
 			</h1>
 			<div className='flex items-center justify-between'>
-				{pathName !== ROUTE_CONSTANTS.home ? (
-					<Link href={ROUTE_CONSTANTS.home}>
+				{pathName !== ROUTE_PAGE_CONSTANTS.home ? (
+					<Link href={ROUTE_PAGE_CONSTANTS.home}>
 						<ChevronLeft
 							size={20}
 							color='gray'
 						/>
 					</Link>
 				) : (
-					<Link href={ROUTE_CONSTANTS.timerConfig}>
+					<Link href={ROUTE_PAGE_CONSTANTS.timerConfig}>
 						<Menu
 							size={20}
 							color='gray'
