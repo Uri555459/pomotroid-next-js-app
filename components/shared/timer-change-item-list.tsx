@@ -29,7 +29,6 @@ export const TimerChangeItemList: FC<Props> = async ({ className }) => {
 				max={90}
 				defaultValue={baseConfig.timeFocusValue}
 				tableValue={baseConfig.timeFocusValue}
-				// changeTimerSliderHandler={changeTimerSliderHandler}
 			/>
 			<TimerChangeItem
 				keyName='timeShortBreakValue'
@@ -39,7 +38,6 @@ export const TimerChangeItemList: FC<Props> = async ({ className }) => {
 				max={90}
 				defaultValue={baseConfig.timeShortBreakValue}
 				tableValue={baseConfig.timeShortBreakValue}
-				// changeTimerSliderHandler={changeTimerSliderHandler}
 			/>
 			<TimerChangeItem
 				keyName='timeLongBreakValue'
@@ -49,7 +47,6 @@ export const TimerChangeItemList: FC<Props> = async ({ className }) => {
 				max={90}
 				defaultValue={baseConfig.timeLongBreakValue}
 				tableValue={baseConfig.timeLongBreakValue}
-				// changeTimerSliderHandler={changeTimerSliderHandler}
 			/>
 			<TimerChangeItem
 				keyName='timeRoundsValue'
@@ -59,7 +56,6 @@ export const TimerChangeItemList: FC<Props> = async ({ className }) => {
 				max={12}
 				defaultValue={baseConfig.timeRoundsValue}
 				tableValue={baseConfig.timeRoundsValue}
-				// changeTimerSliderHandler={changeTimerSliderHandler}
 			/>
 			<div className='my-5 text-center'>
 				<Button>Reset Default</Button>

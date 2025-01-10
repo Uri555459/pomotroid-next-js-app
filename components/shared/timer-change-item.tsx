@@ -48,13 +48,7 @@ export const TimerChangeItem: FC<Props> = ({
 			[keyName]: value,
 		})
 
-		// if (typeof keyName !== 'string') return null
-
-		// const str = data[keyName]
-		// console.log(str)
-
-		setDisplayName(String(data[keyName]))
-		// console.log(data[keyName as keyof Timer])
+		setDisplayName(data[keyName].toString())
 
 		return data
 	}

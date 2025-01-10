@@ -1,12 +1,17 @@
 'use client'
 
-import { useRef, useState } from 'react'
+import { Timer as TimerType } from '@prisma/client'
+import { useEffect, useRef, useState } from 'react'
 import type { FC } from 'react'
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 
 import { useTimer } from '@/store/store'
 
 import { cn } from '@/lib/utils'
+
+import { ROUTE_API_CONSTANTS } from '@/constants/route.constants'
+
+import { axiosInstance } from '@/axios'
 
 interface Props {
 	className?: string
@@ -18,6 +23,12 @@ export const Timer: FC<Props> = ({ className }) => {
 	const [updateTime, setUpdateTime] = useState(timer.timeFocusValue)
 
 	const audioRef = useRef<HTMLAudioElement>(null)
+
+	useEffect(() => {
+		axiosInstance<TimerType[]>(ROUTE_API_CONSTANTS.timer).then(({ data }) => {
+			setUpdateTime(data[0].timeFocusValue)
+		})
+	}, [])
 
 	const play = () => {
 		if (audioRef.current) {
