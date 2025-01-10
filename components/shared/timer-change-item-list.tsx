@@ -1,6 +1,4 @@
-// 'use client'
 import type { Timer } from '@prisma/client'
-// import { useEffect, useState } from 'react'
 import type { FC } from 'react'
 
 import { TimerChangeItem } from '@/components/shared'
@@ -11,8 +9,6 @@ import { cn } from '@/lib/utils'
 import { ROUTE_API_CONSTANTS } from '@/constants/route.constants'
 
 import { axiosInstance } from '@/axios'
-
-// import { axiosInstance } from '@/axios'
 
 interface Props {
 	className?: string

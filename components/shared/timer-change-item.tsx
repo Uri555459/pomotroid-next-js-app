@@ -1,10 +1,16 @@
 'use client'
 
+import type { Timer } from '@prisma/client'
 import type { FC } from 'react'
+import { useEffect, useState } from 'react'
 
 import { Slider } from '@/components/ui'
 
 import { cn } from '@/lib/utils'
+
+import { ROUTE_API_CONSTANTS } from '@/constants/route.constants'
+
+import { axiosInstance } from '@/axios'
 
 interface Props {
 	className?: string
@@ -15,10 +21,9 @@ interface Props {
 	title?: string
 	keyName: KeyNameType
 	tableValue: number
-	onChange?: (value: number) => void
 }
 
-type KeyNameType =
+export type KeyNameType =
 	| 'timeFocusValue'
 	| 'timeShortBreakValue'
 	| 'timeLongBreakValue'
@@ -33,13 +38,30 @@ export const TimerChangeItem: FC<Props> = ({
 	step = 1,
 	title,
 	keyName,
-	tableValue = 1,
 }) => {
-	const changeTimerSliderHandler = (keyName: string, value: number): void => {
-		const key = keyName
-		const val = value
-		console.log(key, val)
+	const [displayName, setDisplayName] = useState('')
+	const changeTimerSliderHandler = async (
+		keyName: KeyNameType,
+		value: number,
+	) => {
+		const { data } = await axiosInstance.put<Timer>(ROUTE_API_CONSTANTS.timer, {
+			[keyName]: value,
+		})
+
+		// if (typeof keyName !== 'string') return null
+
+		// const str = data[keyName]
+		// console.log(str)
+
+		setDisplayName(String(data[keyName]))
+		// console.log(data[keyName as keyof Timer])
+
+		return data
 	}
+
+	useEffect(() => {
+		changeTimerSliderHandler(keyName, defaultValue)
+	}, [defaultValue, keyName])
 
 	return (
 		<div className={cn(className)}>
@@ -47,7 +69,7 @@ export const TimerChangeItem: FC<Props> = ({
 				<h2 className='text-center text-sm capitalize text-[#cc9630]'>
 					{title}
 				</h2>
-				<div className='mb-3'>{`${tableValue} : 00`}</div>
+				<div className='mb-3'>{`${displayName} : 00`}</div>
 				<Slider
 					defaultValue={[defaultValue]}
 					min={min}
