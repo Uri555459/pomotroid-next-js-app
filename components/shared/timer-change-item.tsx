@@ -37,7 +37,7 @@ export const TimerChangeItem: FC<Props> = ({
 	const [displayName, setDisplayName] = useState('')
 	const changeTimerSliderHandler = async (
 		keyName: KeyNameType,
-		value: number,
+		value: number | boolean,
 	) => {
 		const { data } = await axiosInstance.put<Timer>(ROUTE_API_CONSTANTS.timer, {
 			[keyName]: value,
