@@ -14,21 +14,22 @@ export const useChangeTimerSliderHandler = (
 	const [str, setStr] = useState('')
 	const [preData, setPreData] = useState<Timer>()
 
+	const changeTimerSliderHandler = async (
+		keyName: KeyNameType,
+		value: number | boolean,
+	) => {
+		const { data } = await axiosInstance.put<Timer>(ROUTE_API_CONSTANTS.timer, {
+			[keyName]: value,
+		})
+
+		setStr(data[keyName].toString())
+		setPreData(data)
+		return data
+	}
+
 	useEffect(() => {
-		const fetchData = async () => {
-			const { data } = await axiosInstance.put<Timer>(
-				ROUTE_API_CONSTANTS.timer,
-				{
-					[keyName]: value,
-				},
-			)
-
-			setStr(data[keyName].toString())
-			setPreData(data)
-		}
-
-		fetchData()
-	}, [value, keyName])
+		changeTimerSliderHandler(keyName, value)
+	}, [keyName, value])
 
 	return [str, setStr, preData]
 }

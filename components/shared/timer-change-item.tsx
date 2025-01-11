@@ -35,6 +35,7 @@ export const TimerChangeItem: FC<Props> = ({
 	keyName,
 }) => {
 	const [displayName, setDisplayName] = useState('')
+
 	const changeTimerSliderHandler = async (
 		keyName: KeyNameType,
 		value: number | boolean,
