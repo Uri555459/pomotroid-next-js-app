@@ -87,7 +87,11 @@ export const Timer: FC<Props> = ({ className }) => {
 				{({ remainingTime }) => {
 					const minutes = Math.floor(remainingTime / 60)
 					const seconds = remainingTime % 60
-					return `${minutes}:${seconds}`
+					return (
+						<div className='flex flex-col items-center justify-center text-5xl font-light'>
+							{minutes}:{seconds}
+						</div>
+					)
 				}}
 			</CountdownCircleTimer>
 			<audio
