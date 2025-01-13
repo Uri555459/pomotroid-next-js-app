@@ -11,6 +11,8 @@ import { cn } from '@/lib/utils'
 
 import { ROUTE_API_CONSTANTS } from '@/constants/route.constants'
 
+import type { KeyNameType } from '@/@types'
+
 import { axiosInstance } from '@/axios'
 
 interface Props {
@@ -23,6 +25,17 @@ export const Timer: FC<Props> = ({ className }) => {
 	const [updateTime, setUpdateTime] = useState(timer.timeFocusValue)
 
 	const audioRef = useRef<HTMLAudioElement>(null)
+
+	const changeTimerSliderHandler = async (
+		keyName: KeyNameType,
+		value: number | boolean,
+	) => {
+		await axiosInstance.put<TimerType>(ROUTE_API_CONSTANTS.timer, {
+			[keyName]: value,
+		})
+
+		// return data
+	}
 
 	useEffect(() => {
 		axiosInstance<TimerType[]>(ROUTE_API_CONSTANTS.timer).then(({ data }) => {
@@ -56,7 +69,7 @@ export const Timer: FC<Props> = ({ className }) => {
 						timer.timeRoundsCurrentValue !== timer.timeRoundsValue &&
 						timer.timeRoundsCurrentValue % 2 !== 0
 					) {
-						timer.changeTimerSliderHandler(
+						changeTimerSliderHandler(
 							'timeRoundsCurrentValue',
 							timer.timeRoundsCurrentValue + 1,
 						)
@@ -66,7 +79,7 @@ export const Timer: FC<Props> = ({ className }) => {
 						timer.changeIsReset()
 						timer.changeIsPlay()
 					} else if (timer.timeRoundsCurrentValue !== timer.timeRoundsValue) {
-						timer.changeTimerSliderHandler(
+						changeTimerSliderHandler(
 							'timeRoundsCurrentValue',
 							timer.timeRoundsCurrentValue + 1,
 						)

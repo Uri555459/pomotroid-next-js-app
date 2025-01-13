@@ -24,7 +24,7 @@ const RootLayout = ({
 	return (
 		<html lang='en'>
 			<body className={`${roboto.variable} antialiased`}>
-				<main className='mx-auto min-h-[480px] w-full max-w-96 bg-[#23262e] px-5 py-6'>
+				<main className='mx-auto min-h-[480px] w-96 bg-[#23262e] px-5 py-6'>
 					<Header />
 					{children}
 				</main>

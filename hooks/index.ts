@@ -1,1 +1,0 @@
-export { useChangeTimerSliderHandler } from './useChangeTimerSliderHandler'
