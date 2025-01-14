@@ -23,6 +23,7 @@ export const Timer: FC<Props> = ({ className }) => {
 	const timer = useTimer(state => state)
 
 	const [updateTime, setUpdateTime] = useState(timer.timeFocusValue)
+	const [timerData, setTimerData] = useState<TimerType>()
 
 	const audioRef = useRef<HTMLAudioElement>(null)
 
@@ -30,16 +31,20 @@ export const Timer: FC<Props> = ({ className }) => {
 		keyName: KeyNameType,
 		value: number | boolean,
 	) => {
-		await axiosInstance.put<TimerType>(ROUTE_API_CONSTANTS.timer, {
-			[keyName]: value,
-		})
+		const { data } = await axiosInstance.put<TimerType>(
+			ROUTE_API_CONSTANTS.timer,
+			{
+				[keyName]: value,
+			},
+		)
 
-		// return data
+		setTimerData(data)
 	}
 
 	useEffect(() => {
 		axiosInstance<TimerType[]>(ROUTE_API_CONSTANTS.timer).then(({ data }) => {
 			setUpdateTime(data[0].timeFocusValue)
+			setTimerData(data[0])
 		})
 	}, [])
 
@@ -50,6 +55,8 @@ export const Timer: FC<Props> = ({ className }) => {
 			// Throw error
 		}
 	}
+
+	if (!timerData) return null
 
 	return (
 		<div className={cn('flex flex-col items-center', className)}>
@@ -66,30 +73,34 @@ export const Timer: FC<Props> = ({ className }) => {
 				colorsTime={[7, 5, 2, 0]}
 				onComplete={() => {
 					if (
-						timer.timeRoundsCurrentValue !== timer.timeRoundsValue &&
-						timer.timeRoundsCurrentValue % 2 !== 0
+						timerData.timeRoundsCurrentValue !== timerData.timeRoundsValue &&
+						timerData.timeRoundsCurrentValue % 2 !== 0
 					) {
 						changeTimerSliderHandler(
 							'timeRoundsCurrentValue',
-							timer.timeRoundsCurrentValue + 1,
+							timerData.timeRoundsCurrentValue + 1,
 						)
 						play()
 
-						setUpdateTime(timer.timeShortBreakValue)
+						setUpdateTime(timerData.timeShortBreakValue)
 						timer.changeIsReset()
 						timer.changeIsPlay()
-					} else if (timer.timeRoundsCurrentValue !== timer.timeRoundsValue) {
+					} else if (
+						timerData.timeRoundsCurrentValue !== timerData.timeRoundsValue
+					) {
 						changeTimerSliderHandler(
 							'timeRoundsCurrentValue',
-							timer.timeRoundsCurrentValue + 1,
+							timerData.timeRoundsCurrentValue + 1,
 						)
 						play()
-						setUpdateTime(timer.timeFocusValue)
+						setUpdateTime(timerData.timeFocusValue)
 						timer.changeIsReset()
 						timer.changeIsPlay()
-					} else if (timer.timeRoundsCurrentValue === timer.timeRoundsValue) {
+					} else if (
+						timerData.timeRoundsCurrentValue === timerData.timeRoundsValue
+					) {
 						play()
-						setUpdateTime(timer.timeLongBreakValue)
+						setUpdateTime(timerData.timeLongBreakValue)
 						timer.changeIsPlay()
 					}
 					timer.changeIsPlay()
