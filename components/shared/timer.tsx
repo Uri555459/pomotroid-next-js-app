@@ -5,7 +5,9 @@ import { useEffect, useRef, useState } from 'react'
 import type { FC } from 'react'
 import { CountdownCircleTimer } from 'react-countdown-circle-timer'
 
-import { useTimer } from '@/store/store'
+import { useTimer } from '@/store'
+
+import { Skeleton } from '@/components/ui'
 
 import { cn } from '@/lib/utils'
 
@@ -20,10 +22,11 @@ interface Props {
 }
 
 export const Timer: FC<Props> = ({ className }) => {
+	const [timerData, setTimerData] = useState<TimerType>({} as TimerType)
 	const timer = useTimer(state => state)
-
-	const [updateTime, setUpdateTime] = useState(timer.timeFocusValue)
-	const [timerData, setTimerData] = useState<TimerType>()
+	const [updateTime, setUpdateTime] = useState(
+		timerData ? timerData.timeFocusValue : 0,
+	)
 
 	const audioRef = useRef<HTMLAudioElement>(null)
 
@@ -46,7 +49,7 @@ export const Timer: FC<Props> = ({ className }) => {
 			setUpdateTime(data[0].timeFocusValue)
 			setTimerData(data[0])
 		})
-	}, [])
+	}, [timer.isPlay])
 
 	const play = () => {
 		if (audioRef.current) {
@@ -61,9 +64,9 @@ export const Timer: FC<Props> = ({ className }) => {
 	return (
 		<div className={cn('flex flex-col items-center', className)}>
 			<CountdownCircleTimer
-				key={Number(timer.isReset)}
+				key={String(Number(timerData.isPlay))}
 				isGrowing={false}
-				isPlaying={timer.isPlay}
+				isPlaying={timerData.isPlay}
 				size={220}
 				strokeWidth={10}
 				trailColor='#736e76'
@@ -83,8 +86,8 @@ export const Timer: FC<Props> = ({ className }) => {
 						play()
 
 						setUpdateTime(timerData.timeShortBreakValue)
-						timer.changeIsReset()
-						timer.changeIsPlay()
+						changeTimerSliderHandler('isReset', !timerData.isReset)
+						changeTimerSliderHandler('isPlay', !timerData.isPlay)
 					} else if (
 						timerData.timeRoundsCurrentValue !== timerData.timeRoundsValue
 					) {
@@ -94,26 +97,30 @@ export const Timer: FC<Props> = ({ className }) => {
 						)
 						play()
 						setUpdateTime(timerData.timeFocusValue)
-						timer.changeIsReset()
-						timer.changeIsPlay()
+						changeTimerSliderHandler('isReset', !timerData.isReset)
+						changeTimerSliderHandler('isPlay', !timerData.isPlay)
 					} else if (
 						timerData.timeRoundsCurrentValue === timerData.timeRoundsValue
 					) {
 						play()
 						setUpdateTime(timerData.timeLongBreakValue)
-						timer.changeIsPlay()
+						changeTimerSliderHandler('isPlay', !timerData.isPlay)
 					}
-					timer.changeIsPlay()
+					changeTimerSliderHandler('isPlay', !timerData.isPlay)
 				}}
-				onUpdate={() => {}}
 				rotation='clockwise'
 			>
 				{({ remainingTime }) => {
 					const minutes = Math.floor(remainingTime / 60)
 					const seconds = remainingTime % 60
+
 					return (
 						<div className='flex flex-col items-center justify-center text-5xl font-light'>
-							{minutes}:{seconds}
+							{!remainingTime ? (
+								<Skeleton className='h-10 w-16 bg-primary' />
+							) : (
+								`${minutes}:${seconds}`
+							)}
 						</div>
 					)
 				}}
